@@ -1,21 +1,25 @@
-var colorStyles = require('color-style')
+var genfun = require('generate-function')
 
 module.exports = pixelsToCanvas
 
 function pixelsToCanvas (canvas) {
   var ctx = canvas.getContext('2d')
 
-  // TODO actually compile function
   function compileRender (ctx, format, shape) {
     var width = canvas.width / shape[0]
     var height = canvas.height / shape[1]
     var colorStyle = compileColorStyle(format)
 
-    return function (x, y, color) {
-      console.log(colorStyle(color))
-      ctx.fillStyle = colorStyle(color)
-      ctx.fillRect(x * width, y * height, width, height)
-    }
+    var render = genfun()
+      ('function (x, y, color) {')
+        ('ctx.fillStyle = colorStyle(color)')
+        ('ctx.fillRect(x * %d, y * %d, %d, %d)', width, height, width, height)
+      ('}')
+
+    return render.toFunction({
+      ctx: ctx,
+      colorStyle: colorStyle
+    })
   }
 
   return function updateCanvas (pixels) {
@@ -29,22 +33,35 @@ function pixelsToCanvas (canvas) {
   }
 }
 
-// TODO actually compile function
 function compileColorStyle (format) {
-  var toStyle = colorStyles[format]
-  var fmt = format.slice(0, 3)
+  var colorStyle
   if (format === 'keyword') {
-    return function (color) { return color.get(0) }
-  } else if (fmt === 'rgb' || fmt === 'hsl') {
-    if (format[3] === 'a') {
-      return function (color) {
-        return toStyle(color.get(0), color.get(1), color.get(2), color.get(3))
-      }
-    }
-    return function (color) {
-      return toStyle(color.get(0), color.get(1), color.get(2))
-    }
+    colorStyle = genfun()
+      ('function (color) {')
+        ('return color.get(0)')
+      ('}')
+  } else if (format === 'rgba') {
+    colorStyle = genfun()
+      ('function (color) {')
+        ('return "rgb("+ ~~color.get(0) + "," + ~~color.get(1) + "," + ~~color.get(2) + ")"')
+      ('}')
+  } else if (format === 'rgba') {
+    colorStyle = genfun()
+      ('function (color) {')
+        ('return "rgba("+ ~~color.get(0) + "," + ~~color.get(1) + "," + ~~color.get(2)) + "," + color.get(3) + ")"')
+      ('}')
+  } else if (format === 'hsl') {
+    colorStyle = genfun()
+      ('function (color) {')
+        ('return "hsl("+ color.get(0) + "," + color.get(1) + "%," + color.get(2) + "%)"')
+      ('}')
+  } else if (format === 'hsla') {
+    colorStyle = genfun()
+      ('function (color) {')
+        ('return "hsl("+ color.get(0) + "," + color.get(1) + "%," + color.get(2) + "%," + color.get(3) + ")"')
+      ('}')
   } else {
     throw new Error('2dpixels-canvas: unsupported color format: ', format)
   }
+  return colorStyle.toFunction()
 }
