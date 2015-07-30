@@ -9,9 +9,11 @@ function pixelsToCanvas (canvas) {
   function compileRender (ctx, format, shape) {
     var width = canvas.width / shape[0]
     var height = canvas.height / shape[1]
+    var colorStyle = compileColorStyle(format)
 
     return function (x, y, color) {
-      ctx.fillStyle = colorStyle(format, color)
+      console.log(colorStyle(color))
+      ctx.fillStyle = colorStyle(color)
       ctx.fillRect(x * width, y * height, width, height)
     }
   }
@@ -27,11 +29,22 @@ function pixelsToCanvas (canvas) {
   }
 }
 
-function colorStyle (format, color) {
+// TODO actually compile function
+function compileColorStyle (format) {
   var toStyle = colorStyles[format]
-  if (color.size === 3) {
-    return toStyle(color.get(0), color.get(1), color.get(2))
-  } else if (color.size === 4) {
-    return toStyle(color.get(0), color.get(1), color.get(2), color.get(3))
+  var fmt = format.slice(0, 3)
+  if (format === 'keyword') {
+    return function (color) { return color.get(0) }
+  } else if (fmt === 'rgb' || fmt === 'hsl') {
+    if (format[3] === 'a') {
+      return function (color) {
+        return toStyle(color.get(0), color.get(1), color.get(2), color.get(3))
+      }
+    }
+    return function (color) {
+      return toStyle(color.get(0), color.get(1), color.get(2))
+    }
+  } else {
+    throw new Error('2dpixels-canvas: unsupported color format: ', format)
   }
 }
