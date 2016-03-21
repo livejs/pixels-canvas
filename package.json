@@ -9,7 +9,7 @@
     "dist": "mkdir -p dist && bash -c 'cp *.{js,html,css} dist'",
     "push": "gh-pages -d dist",
     "start": "budo example.js -d --serve bundle.js --live",
-    "test": "browserify test.js | smokestack | tap-spec"
+    "test": "browserify test | smokestack | tap-spec"
   },
   "browserify": {
     "transform": []
