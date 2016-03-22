@@ -9,7 +9,7 @@ render 2dpixels to a canvas element
 
 ```
 git clone https://github.com/ahdinosaur/2dpixels-canvas
-cd 
+cd 2dpixels-canvas
 npm install
 ```
 
