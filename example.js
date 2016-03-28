@@ -1,26 +1,22 @@
 var rainbowPixels = require('rainbow-pixels')
-var through = require('through2')
-var raf = require('raf')
+var raf = require('pull-raf')
+var pull = require('pull-stream')
 
 var canvas = document.createElement('canvas')
-canvas.width = document.body.clientWidth
-canvas.height = document.body.clientHeight
-document.body.appendChild(canvas)
-
 var pixelsToCanvas = require('./')(canvas)
 
-rainbowPixels({
-  shape: [
-    Math.floor(canvas.width / 16),
-    Math.floor(canvas.height / 16)
-  ],
-  inc: 1
-})
-.pipe(through.obj({
-  highWaterMark: 1
-}, function (pixels, enc, cb) {
-  raf(function () {
+document.body.appendChild(canvas)
+
+pull(
+  rainbowPixels({
+    shape: [
+      Math.floor(document.body.clientWidth / 16),
+      Math.floor(document.body.clientHeight / 16)
+    ]
+  }),
+  raf(),
+  pull.map(function (pixels) {
     pixelsToCanvas(pixels)
-    cb()
-  })
-}))
+  }),
+  pull.drain()
+)
