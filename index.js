@@ -1,9 +1,9 @@
 var genfun = require('generate-function')
 var colorStyles = require('pixel-to-css-color')
 
-module.exports = pixelsToCanvas
+module.exports = createPixelsToCanvasRenderer
 
-function pixelsToCanvas (canvas) {
+function createPixelsToCanvasRenderer (canvas) {
   var ctx = canvas.getContext('2d')
 
   function compileRender (ctx, format, shape) {

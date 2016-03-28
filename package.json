@@ -1,7 +1,7 @@
 {
-  "name": "2dpixels-canvas",
+  "name": "pixels-canvas",
   "version": "1.0.0",
-  "description": "render 2dpixels to a canvas element",
+  "description": "render pixels to a canvas element",
   "main": "index.js",
   "scripts": {
     "build": "browserify example.js -o bundle.js -g uglifyify",
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ahdinosaur/2dpixels-canvas"
+    "url": "https://github.com/livejs/pixels-canvas"
   },
   "author": "ahdinosaur",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ahdinosaur/2dpixels-canvas/issues"
+    "url": "https://github.com/livejs/pixels-canvas/issues"
   },
-  "homepage": "https://github.com/ahdinosaur/2dpixels-canvas",
+  "homepage": "https://github.com/livejs/pixels-canvas",
   "dependencies": {
     "generate-function": "^2.0.0",
     "pixel-to-css-color": "^1.0.0"
@@ -32,12 +32,12 @@
     "browserify": "^10.0.0",
     "budo": "^4.0.0",
     "gh-pages": "^0.3.0",
-    "raf": "^3.1.0",
-    "rainbow-pixels": "^3.0.0",
+    "pull-raf": "^1.0.1",
+    "pull-stream": "^3.2.3",
+    "rainbow-pixels": "^4.0.0",
     "smokestack": "^3.3.0",
     "tap-spec": "^4.0.2",
     "tape": "^4.0.0",
-    "through2": "^2.0.0",
     "uglifyify": "^3.0.1",
     "watchify": "^3.1.0"
   }
