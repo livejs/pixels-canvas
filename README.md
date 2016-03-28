@@ -1,6 +1,6 @@
 # pixels-canvas
 
-canvas renderer for [pixels](https://github.com/livejs/pixels-canvas)
+canvas renderer for [pixels](https://github.com/livejs/pixels)
 
 ```shell
 npm install --save pixels-canvas
@@ -30,7 +30,7 @@ document.body.appendChild(canvas)
 pixelsToCanvas(pixels)
 ```
 
-for a full example, see [./example](http://ahdinosaur.github.io/2dpixels-canvas)
+for a full example, see [./example](http://livejs.github.io/pixels-canvas)
 
 ## License
 
