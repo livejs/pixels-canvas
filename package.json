@@ -28,7 +28,7 @@
     "cwise": "^1.0.9",
     "generate-function": "^2.0.0",
     "ndpixels": "^1.0.0",
-    "pixel-to-css-color": "^1.0.0",
+    "pixel-to-css-color": "^2.0.2",
     "tcomb": "^3.0.0"
   },
   "devDependencies": {
