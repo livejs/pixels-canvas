@@ -42,15 +42,15 @@ function genFillStyle (ctx, format) {
   var fn
   switch (format) {
     case 'keyword':
-      fn = genfun('function (a) { ctx.fillStyle = toCss(a) }')
+      fn = genfun('function fillStyle (a) { ctx.fillStyle = toCss(a) }')
       break;
     case 'rgb':
     case 'hsl':
-      fn = genfun('function (a, b, c) { ctx.fillStyle = toCss(a, b, c) }')
+      fn = genfun('function fillStyle (a, b, c) { ctx.fillStyle = toCss(a, b, c) }')
       break;
     case 'hsla':
     case 'rgba':
-      fn = genfun('function (a, b, c, d) { ctx.fillStyle = toCss(a, b, c, d) }')
+      fn = genfun('function fillStyle (a, b, c, d) { ctx.fillStyle = toCss(a, b, c, d) }')
       break;
   }
 
@@ -78,13 +78,13 @@ function genFillRect (ctx, shape) {
   switch (dimension) {
     case -1:
     case 0:
-      fn = genfun('function () { ctx.fillRect(0, 0, %d, %d) }', width, height)
+      fn = genfun('function fillRect () { ctx.fillRect(0, 0, %d, %d) }', width, height)
       break
     case 1:
-      fn = genfun('function (x) { ctx.fillRect(x * %d, 0, %d, %d) }', width, width, height)
+      fn = genfun('function fillRect (x) { ctx.fillRect(x * %d, 0, %d, %d) }', width, width, height)
       break
     case 2:
-      fn = genfun('function (x, y) { ctx.fillRect(x * %d, y * %d, %d, %d) }', width, height, width, height)
+      fn = genfun('function fillRect (x, y) { ctx.fillRect(x * %d, y * %d, %d, %d) }', width, height, width, height)
       break
     default:
       throw new Error('pixels-canvas: cannot iterate in ' + dimension + ' dimensions')
