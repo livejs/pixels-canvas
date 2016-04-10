@@ -9,7 +9,7 @@
     "dist": "mkdir -p dist && bash -c 'cp *.{js,html,css} dist'",
     "push": "gh-pages -d dist",
     "start": "budo example.js -d --serve bundle.js --live",
-    "test": "browserify test | smokestack | tap-spec"
+    "test": "tape test"
   },
   "browserify": {
     "transform": []
@@ -25,8 +25,11 @@
   },
   "homepage": "https://github.com/livejs/pixels-canvas",
   "dependencies": {
+    "cwise": "^1.0.9",
     "generate-function": "^2.0.0",
-    "pixel-to-css-color": "^1.0.0"
+    "ndpixels": "^1.0.0",
+    "pixel-to-css-color": "^1.0.0",
+    "tcomb": "^3.0.0"
   },
   "devDependencies": {
     "browserify": "^10.0.0",
@@ -35,8 +38,6 @@
     "pull-raf": "^1.0.1",
     "pull-stream": "^3.2.3",
     "rainbow-pixels": "^4.0.0",
-    "smokestack": "^3.3.0",
-    "tap-spec": "^4.0.2",
     "tape": "^4.0.0",
     "uglifyify": "^3.0.1",
     "watchify": "^3.1.0"
