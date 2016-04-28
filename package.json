@@ -1,6 +1,6 @@
 {
   "name": "pixels-canvas",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "render pixels to a canvas element",
   "main": "index.js",
   "scripts": {
