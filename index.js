@@ -66,7 +66,7 @@ function genFillRect (ctx, shape) {
       height = ctx.canvas.height / shape[1]
       break;
     case 1:
-      width = ctx.canvas.width / pixels.shape[0]
+      width = ctx.canvas.width / shape[0]
       height = 1
       break;
     default:
