@@ -12,7 +12,9 @@
     "test": "tape test"
   },
   "browserify": {
-    "transform": []
+    "transform": [
+      "cwise"
+    ]
   },
   "repository": {
     "type": "git",
